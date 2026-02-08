@@ -8,11 +8,23 @@
   <!-- Tailwind CDN (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Optional SEO: adjust to your languages -->
+  <link rel="alternate" hreflang="en" href="../en/" />
+  <link rel="alternate" hreflang="fr" href="../fr/" />
+  <link rel="alternate" hreflang="de" href="../de/" />
+  <link rel="alternate" hreflang="x-default" href="../en/" />
+
   <style>
-    /* Small polish without extra dependencies */
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.7); }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
+    .clamp-4 {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   </style>
 </head>
+
 <body class="min-h-screen bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
   <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
     <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-3">
@@ -24,9 +36,17 @@
         </div>
       </div>
 
-      <a id="primaryCta" href="#books" class="inline-flex items-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
-        Browse books
-      </a>
+      <div class="flex items-center gap-2">
+        <label for="langSelect" class="sr-only" id="langLabel">Language</label>
+        <select id="langSelect" class="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm">
+          <!-- populated by JS -->
+        </select>
+
+        <a id="primaryCta" href="#books"
+          class="hidden sm:inline-flex items-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
+          Browse books
+        </a>
+      </div>
     </div>
   </header>
 
@@ -34,44 +54,36 @@
     <section class="py-10 md:py-14">
       <div class="grid gap-6 md:grid-cols-2 md:items-center">
         <div>
-          <h1 class="text-3xl md:text-5xl font-semibold tracking-tight">
-            Beautiful recipe eBooks.<br class="hidden md:block" />
-            Clear steps. Big flavor.
-          </h1>
-          <p class="mt-4 text-zinc-600 text-base md:text-lg max-w-prose">
-            Browse the full collection below. Each book includes tested recipes, practical techniques, and a clean layout made for cooking.
-          </p>
+          <h1 id="heroTitle" class="text-3xl md:text-5xl font-semibold tracking-tight"></h1>
+          <p id="heroLead" class="mt-4 text-zinc-600 text-base md:text-lg max-w-prose"></p>
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#books" class="inline-flex justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
-              View all books
-            </a>
-            <a href="#faq" class="inline-flex justify-center rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50">
-              How it works
-            </a>
+            <a id="heroCtaPrimary" href="#books"
+              class="inline-flex justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800"></a>
+            <a id="heroCtaSecondary" href="#faq"
+              class="inline-flex justify-center rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"></a>
           </div>
         </div>
 
         <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
           <div class="flex items-center justify-between gap-3">
-            <div class="text-sm font-semibold">Search</div>
-            <div id="countBadge" class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">0 books</div>
+            <div id="searchTitle" class="text-sm font-semibold">Search</div>
+            <div id="countBadge" class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">0</div>
           </div>
-          <input id="q" type="search" placeholder="Title, tag, language…"
+
+          <input id="q" type="search"
             class="mt-3 w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-zinc-900/20" />
 
           <div id="tagRow" class="mt-4 flex flex-wrap gap-2"></div>
 
-          <div class="mt-5 text-xs text-zinc-500">
-            Tip: keep your catalog in <span class="font-mono">books.json</span> and the page updates automatically.
-          </div>
+          <div id="tipText" class="mt-5 text-xs text-zinc-500"></div>
         </div>
       </div>
     </section>
 
     <section id="books" class="pb-14">
       <div class="flex items-end justify-between gap-3">
-        <h2 class="text-xl md:text-2xl font-semibold">Books</h2>
+        <h2 id="booksTitle" class="text-xl md:text-2xl font-semibold">Books</h2>
 
         <select id="sort" class="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm">
           <option value="new">Newest</option>
@@ -81,25 +93,23 @@
 
       <div id="grid" class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
 
-      <div id="empty" class="hidden mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-zinc-600">
-        No books match your search.
-      </div>
+      <div id="empty" class="hidden mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-zinc-600"></div>
     </section>
 
     <section id="faq" class="pb-16">
-      <h2 class="text-xl md:text-2xl font-semibold">How it works</h2>
+      <h2 id="howWorksTitle" class="text-xl md:text-2xl font-semibold"></h2>
       <div class="mt-4 grid gap-4 md:grid-cols-3">
         <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div class="font-semibold">1) Add books</div>
-          <p class="mt-1 text-sm text-zinc-600">Edit <span class="font-mono">books.json</span>: title, description, cover, buy link.</p>
+          <div id="step1Title" class="font-semibold"></div>
+          <p id="step1Desc" class="mt-1 text-sm text-zinc-600"></p>
         </div>
         <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div class="font-semibold">2) Upload covers</div>
-          <p class="mt-1 text-sm text-zinc-600">Put images in <span class="font-mono">/covers</span> or use direct image URLs.</p>
+          <div id="step2Title" class="font-semibold"></div>
+          <p id="step2Desc" class="mt-1 text-sm text-zinc-600"></p>
         </div>
         <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div class="font-semibold">3) Publish</div>
-          <p class="mt-1 text-sm text-zinc-600">Host free on GitHub Pages / Netlify / Cloudflare Pages.</p>
+          <div id="step3Title" class="font-semibold"></div>
+          <p id="step3Desc" class="mt-1 text-sm text-zinc-600"></p>
         </div>
       </div>
     </section>
@@ -107,22 +117,121 @@
 
   <footer class="border-t border-zinc-200/70">
     <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-zinc-600 flex flex-col sm:flex-row justify-between gap-2">
-      <div>© <span id="year"></span> Recipe Gems</div>
-      <div class="opacity-80">Made with a simple JSON catalog.</div>
+      <div>© <span id="year"></span> <span id="footerBrand">Recipe Gems</span></div>
+      <div id="footerRight" class="opacity-80"></div>
     </div>
   </footer>
 
 <script>
+  // --------- PER-LANGUAGE SETTINGS (edit these in each language folder) ----------
+  const LANG = "en";
+
+  const LANGUAGES = [
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+    { code: "de", label: "Deutsch" }
+  ];
+
+  const T = {
+    pageTitle: "Recipe eBooks",
+    langLabel: "Language",
+    headerCta: "Browse books",
+
+    heroTitleHtml: "Beautiful recipe eBooks.<br class='hidden md:block' />Clear steps. Big flavor.",
+    heroLead: "Browse the full collection below. Each book includes tested recipes, practical techniques, and a clean layout made for cooking.",
+    heroCtaPrimary: "View all books",
+    heroCtaSecondary: "How it works",
+
+    searchTitle: "Search",
+    searchPlaceholder: "Title, tag, language…",
+    tipHtml: "Tip: keep your catalog in <span class='font-mono'>books.json</span> and the page updates automatically.",
+
+    tagAll: "All",
+    booksHeading: "Books",
+    sortNewest: "Newest",
+    sortAZ: "Title A–Z",
+    noMatch: "No books match your search.",
+
+    howWorksHeading: "How it works",
+    step1Title: "1) Add books",
+    step1Desc: "Edit books.json: title, description, cover, buy link.",
+    step2Title: "2) Upload covers",
+    step2Desc: "Put images in /covers (shared) or use direct image URLs.",
+    step3Title: "3) Publish",
+    step3Desc: "Host free on GitHub Pages / Netlify / Cloudflare Pages.",
+
+    countOne: "{n} book",
+    countMany: "{n} books",
+
+    buyButton: "Buy / Download",
+    copyLink: "Copy link",
+    copied: "Copied",
+    coverMissingTitle: "Add a cover image",
+    footerRight: "Made with a simple JSON catalog."
+  };
+  // ------------------------------------------------------------------------------
+
   const el = (id) => document.getElementById(id);
 
-  const state = {
-    data: null,
-    query: "",
-    activeTag: null,
-    sort: "new",
-  };
+  const state = { data: null, query: "", activeTag: null, sort: "new" };
 
   function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
+  function countLabel(n) {
+    const tpl = (n === 1 ? T.countOne : T.countMany);
+    return tpl.replace("{n}", n);
+  }
+
+  function applyTranslations() {
+    document.title = T.pageTitle;
+    el("langLabel").textContent = T.langLabel;
+    el("primaryCta").textContent = T.headerCta;
+
+    el("heroTitle").innerHTML = T.heroTitleHtml;
+    el("heroLead").textContent = T.heroLead;
+    el("heroCtaPrimary").textContent = T.heroCtaPrimary;
+    el("heroCtaSecondary").textContent = T.heroCtaSecondary;
+
+    el("searchTitle").textContent = T.searchTitle;
+    el("q").placeholder = T.searchPlaceholder;
+    el("tipText").innerHTML = T.tipHtml;
+
+    el("booksTitle").textContent = T.booksHeading;
+
+    const sortSel = el("sort");
+    sortSel.querySelector("option[value='new']").textContent = T.sortNewest;
+    sortSel.querySelector("option[value='az']").textContent = T.sortAZ;
+
+    el("empty").textContent = T.noMatch;
+
+    el("howWorksTitle").textContent = T.howWorksHeading;
+    el("step1Title").textContent = T.step1Title;
+    el("step1Desc").textContent = T.step1Desc;
+    el("step2Title").textContent = T.step2Title;
+    el("step2Desc").textContent = T.step2Desc;
+    el("step3Title").textContent = T.step3Title;
+    el("step3Desc").textContent = T.step3Desc;
+
+    el("footerRight").textContent = T.footerRight;
+  }
+
+  function setupLanguageSwitcher() {
+    const select = el("langSelect");
+    select.innerHTML = "";
+    LANGUAGES.forEach(l => {
+      const opt = document.createElement("option");
+      opt.value = l.code;
+      opt.textContent = l.label;
+      select.appendChild(opt);
+    });
+    select.value = LANG;
+
+    select.addEventListener("change", () => {
+      const code = select.value;
+      const dest = new URL(`../${code}/`, window.location.href);
+      dest.hash = window.location.hash || "";
+      window.location.href = dest.toString();
+    });
+  }
 
   function renderTags(books) {
     const tagSet = new Set();
@@ -138,14 +247,11 @@
         "text-xs rounded-full border px-3 py-1.5 hover:bg-zinc-50 " +
         (state.activeTag === tag ? "border-zinc-900 bg-zinc-900 text-white" : "border-zinc-300 text-zinc-700");
       btn.textContent = label;
-      btn.onclick = () => {
-        state.activeTag = (state.activeTag === tag) ? null : tag;
-        render();
-      };
+      btn.onclick = () => { state.activeTag = (state.activeTag === tag) ? null : tag; render(); };
       return btn;
     };
 
-    row.appendChild(mkBtn("All", null));
+    row.appendChild(mkBtn(T.tagAll, null));
     tags.forEach(t => row.appendChild(mkBtn(t, t)));
   }
 
@@ -168,61 +274,105 @@
     if (state.sort === "az") {
       return [...list].sort((a,b) => (a.title || "").localeCompare(b.title || ""));
     }
-    // newest
-    return [...list].sort((a,b) => (normalize(b.published)).localeCompare(normalize(a.published)));
+    return [...list].sort((a,b) => normalize(b.published).localeCompare(normalize(a.published)));
+  }
+
+  function makeCoverFallback(coverWrap, hint) {
+    coverWrap.innerHTML = "";
+    coverWrap.className = "aspect-[4/5] bg-zinc-100 grid place-items-center";
+    const box = document.createElement("div");
+    box.className = "text-sm text-zinc-500 p-6 text-center";
+    box.innerHTML = `${T.coverMissingTitle}<br><span class="font-mono">${hint || ""}</span>`;
+    coverWrap.appendChild(box);
   }
 
   function card(book) {
-    const div = document.createElement("div");
-    div.className = "group rounded-3xl border border-zinc-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden";
+    const root = document.createElement("div");
+    root.className = "group rounded-3xl border border-zinc-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden";
 
-    const cover = book.cover || "";
-    const title = book.title || "Untitled";
-    const desc = book.description || "";
-    const fmt = book.format || "";
-    const lang = book.language || "";
-    const tags = book.tags || [];
-    const buy = book.buy_url || "#";
+    const coverWrap = document.createElement("div");
+    coverWrap.className = "aspect-[4/5] bg-zinc-100 overflow-hidden";
 
-    div.innerHTML = `
-      <div class="aspect-[4/5] bg-zinc-100 overflow-hidden">
-        <img src="${cover}" alt="${title} cover"
-             class="h-full w-full object-cover group-hover:scale-[1.02] transition-transform"
-             loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=\\'text-sm text-zinc-500 p-6 text-center\\'>Add a cover image<br><span class=\\'font-mono\\'>${book.cover || "covers/your-book.jpg"}</span></div>';">
-      </div>
-      <div class="p-5">
-        <div class="flex items-start justify-between gap-3">
-          <h3 class="text-base font-semibold leading-snug">${title}</h3>
-        </div>
-        <p class="mt-2 text-sm text-zinc-600 leading-relaxed line-clamp-4">${desc}</p>
+    if (book.cover) {
+      const img = document.createElement("img");
+      img.src = book.cover;
+      img.alt = (book.title || "") + " cover";
+      img.loading = "lazy";
+      img.className = "h-full w-full object-cover group-hover:scale-[1.02] transition-transform";
+      img.onerror = () => makeCoverFallback(coverWrap, book.cover);
+      coverWrap.appendChild(img);
+    } else {
+      makeCoverFallback(coverWrap, "../covers/your-book.jpg");
+    }
 
-        <div class="mt-4 flex flex-wrap gap-2">
-          ${lang ? `<span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">${lang}</span>` : ""}
-          ${fmt ? `<span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">${fmt}</span>` : ""}
-          ${tags.slice(0,3).map(t => `<span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">${t}</span>`).join("")}
-        </div>
+    const body = document.createElement("div");
+    body.className = "p-5";
 
-        <div class="mt-5 flex gap-2">
-          <a href="${buy}" target="_blank" rel="noopener"
-             class="inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800">
-             Buy / Download
-          </a>
-          <button class="rounded-xl border border-zinc-300 px-3 py-2.5 text-sm font-semibold hover:bg-zinc-50"
-                  onclick="navigator.clipboard.writeText('${buy}'); this.textContent='Copied'; setTimeout(()=>this.textContent='Copy link',900);">
-            Copy link
-          </button>
-        </div>
-      </div>
-    `;
-    return div;
+    const title = document.createElement("h3");
+    title.className = "text-base font-semibold leading-snug";
+    title.textContent = book.title || "Untitled";
+
+    const desc = document.createElement("p");
+    desc.className = "mt-2 text-sm text-zinc-600 leading-relaxed clamp-4";
+    desc.textContent = book.description || "";
+
+    const meta = document.createElement("div");
+    meta.className = "mt-4 flex flex-wrap gap-2";
+
+    const addPill = (text) => {
+      if (!text) return;
+      const s = document.createElement("span");
+      s.className = "text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700";
+      s.textContent = text;
+      meta.appendChild(s);
+    };
+
+    addPill(book.language);
+    addPill(book.format);
+    (book.tags || []).slice(0,3).forEach(addPill);
+
+    const actions = document.createElement("div");
+    actions.className = "mt-5 flex gap-2";
+
+    const buy = document.createElement("a");
+    buy.href = book.buy_url || "#";
+    buy.target = "_blank";
+    buy.rel = "noopener";
+    buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+    buy.textContent = T.buyButton;
+
+    const copy = document.createElement("button");
+    copy.className = "rounded-xl border border-zinc-300 px-3 py-2.5 text-sm font-semibold hover:bg-zinc-50";
+    copy.textContent = T.copyLink;
+    copy.onclick = async () => {
+      const url = book.buy_url || "";
+      try {
+        await navigator.clipboard.writeText(url);
+        copy.textContent = T.copied;
+        setTimeout(() => copy.textContent = T.copyLink, 900);
+      } catch {
+        // fallback: do nothing
+      }
+    };
+
+    actions.appendChild(buy);
+    actions.appendChild(copy);
+
+    body.appendChild(title);
+    body.appendChild(desc);
+    body.appendChild(meta);
+    body.appendChild(actions);
+
+    root.appendChild(coverWrap);
+    root.appendChild(body);
+    return root;
   }
 
   function render() {
     const books = state.data?.books || [];
     const filtered = sortBooks(books.filter(bookMatches));
 
-    el("countBadge").textContent = `${filtered.length} book${filtered.length === 1 ? "" : "s"}`;
+    el("countBadge").textContent = countLabel(filtered.length);
 
     const grid = el("grid");
     grid.innerHTML = "";
@@ -230,19 +380,25 @@
 
     el("empty").classList.toggle("hidden", filtered.length !== 0);
 
-    // rerender tag styles
     renderTags(books);
   }
 
   async function init() {
     el("year").textContent = new Date().getFullYear();
 
-    const res = await fetch("books.json", { cache: "no-store" });
+    applyTranslations();
+    setupLanguageSwitcher();
+
+    const res = await fetch("./books.json", { cache: "no-store" });
     state.data = await res.json();
 
-    // set site header if present
+    // per-language site strings from books.json
     if (state.data.site?.title) el("siteTitle").textContent = state.data.site.title;
     if (state.data.site?.tagline) el("siteTagline").textContent = state.data.site.tagline;
+    el("footerBrand").textContent = (state.data.site?.brand || state.data.site?.title || "Recipe Gems");
+
+    // Optional: use site title as document title
+    if (state.data.site?.title) document.title = state.data.site.title;
 
     el("q").addEventListener("input", (e) => { state.query = e.target.value; render(); });
     el("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
