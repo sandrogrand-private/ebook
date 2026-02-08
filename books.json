@@ -1,0 +1,30 @@
+{
+  "site": {
+    "title": "Recipe Gems — eBooks",
+    "tagline": "Cookbooks designed for real life. Delicious, reliable, and beautifully photographed."
+  },
+  "books": [
+    {
+      "id": "anti-inflammatory-50",
+      "title": "Radiant Table: 50 Anti-Inflammatory Recipes",
+      "description": "Bold flavors, weeknight-friendly recipes, and simple techniques. Built around olive oil, vegetables, herbs, legumes, whole grains, and seafood.",
+      "cover": "covers/radiant-table.jpg",
+      "buy_url": "https://your-store-link.com/radiant-table",
+      "format": "PDF / ePub",
+      "language": "English",
+      "tags": ["Anti-inflammatory", "Weeknight", "Healthy"],
+      "published": "2026-02-01"
+    },
+    {
+      "id": "thai-classics",
+      "title": "Traditional Thai Recipes",
+      "description": "A practical collection of Thai classics with big flavor, clear steps, and ingredients you can find anywhere.",
+      "cover": "covers/thai-classics.jpg",
+      "buy_url": "https://your-store-link.com/thai-classics",
+      "format": "PDF / ePub",
+      "language": "English",
+      "tags": ["Thai", "Classics", "Spicy"],
+      "published": "2026-01-10"
+    }
+  ]
+}
