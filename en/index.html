@@ -8,6 +8,10 @@
   <!-- Tailwind CDN (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Paddle.js (payments via Paddle) -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
+
   <!-- Optional SEO: adjust to your languages -->
   <link rel="alternate" hreflang="en" href="../en/" />
   <link rel="alternate" hreflang="fr" href="../fr/" />
@@ -167,13 +171,66 @@
     copyLink: "Copy link",
     copied: "Copied",
     coverMissingTitle: "Add a cover image",
-    footerRight: "Made with a simple JSON catalog."
+    footerRightHtml: "<a class='hover:text-zinc-900' href='./pricing.html'>Pricing</a> · <a class='hover:text-zinc-900' href='./terms-and-conditions.html'>Terms</a> · <a class='hover:text-zinc-900' href='./terms-and-conditions.html#privacy'>Privacy</a> · <a class='hover:text-zinc-900' href='./terms-and-conditions.html#refund'>Refunds</a>"
   };
   // ------------------------------------------------------------------------------
 
   const el = (id) => document.getElementById(id);
 
   const state = { data: null, query: "", activeTag: null, sort: "new" };
+
+  // --------------------- PADDLE (optional) ---------------------
+  // 1) Create a client-side token in Paddle: Developer tools > Authentication
+  // 2) Paste it below (starts with test_ for sandbox or live_ for production)
+  const PADDLE_CLIENT_SIDE_TOKEN = ""; // e.g. "test_xxx" or "live_xxx"
+
+  function paddleEnabled() {
+    return /^(test|live)_[A-Za-z0-9]+/.test((PADDLE_CLIENT_SIDE_TOKEN || "").trim());
+  }
+
+  function initPaddle() {
+    if (!paddleEnabled()) return;
+    if (!window.Paddle) return;
+
+    try {
+      // Sandbox only — remove for production (Paddle defaults to production when not set)
+      if (PADDLE_CLIENT_SIDE_TOKEN.trim().startsWith("test_") &&
+          Paddle.Environment && typeof Paddle.Environment.set === "function") {
+        Paddle.Environment.set("sandbox");
+      }
+
+      Paddle.Initialize({
+        token: PADDLE_CLIENT_SIDE_TOKEN.trim(),
+        checkout: {
+          settings: {
+            displayMode: "overlay",
+            variant: "one-page",
+            theme: "light",
+            locale: LANG
+          }
+        }
+      });
+    } catch (e) {
+      console.warn("Paddle init failed:", e);
+    }
+  }
+
+  function openPaddleCheckout(priceId) {
+    if (!paddleEnabled()) return false;
+    if (!window.Paddle || !priceId) return false;
+
+    try {
+      Paddle.Checkout.open({
+        items: [{ priceId, quantity: 1 }]
+      });
+      return true;
+    } catch (e) {
+      console.warn("Paddle checkout failed:", e);
+      return false;
+    }
+  }
+  // -------------------------------------------------------------
+
 
   function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
   function countLabel(n) {
@@ -211,7 +268,8 @@
     el("step3Title").textContent = T.step3Title;
     el("step3Desc").textContent = T.step3Desc;
 
-    el("footerRight").textContent = T.footerRight;
+    // footer links (HTML)
+    el("footerRight").innerHTML = T.footerRightHtml;
   }
 
   function setupLanguageSwitcher() {
@@ -334,12 +392,27 @@
     const actions = document.createElement("div");
     actions.className = "mt-5 flex gap-2";
 
-    const buy = document.createElement("a");
-    buy.href = book.buy_url || "#";
-    buy.target = "_blank";
-    buy.rel = "noopener";
-    buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
-    buy.textContent = T.buyButton;
+    const priceId = book.paddle_price_id || book.paddle_priceId || "";
+    let buy;
+
+    if (priceId && paddleEnabled()) {
+      buy = document.createElement("button");
+      buy.type = "button";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+      buy.onclick = () => {
+        const ok = openPaddleCheckout(priceId);
+        // Fallback: if Paddle isn't configured correctly yet, open the old link
+        if (!ok && book.buy_url) window.open(book.buy_url, "_blank", "noopener");
+      };
+    } else {
+      buy = document.createElement("a");
+      buy.href = book.buy_url || "#";
+      buy.target = "_blank";
+      buy.rel = "noopener";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+    }
 
     const copy = document.createElement("button");
     copy.className = "rounded-xl border border-zinc-300 px-3 py-2.5 text-sm font-semibold hover:bg-zinc-50";
@@ -388,6 +461,8 @@
 
     applyTranslations();
     setupLanguageSwitcher();
+
+    initPaddle();
 
     const res = await fetch("./books.json", { cache: "no-store" });
     state.data = await res.json();

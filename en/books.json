@@ -1,8 +1,8 @@
 {
   "site": {
-    "title": "Recipe Gems — eBooks",
+    "title": "Recipe Ebook Store",
     "tagline": "Cookbooks designed for real life.",
-    "brand": "Recipe Gems"
+    "brand": "Recipe Ebook Store"
   },
   "books": [
     {
@@ -13,8 +13,13 @@
       "buy_url": "https://your-store-link.com/radiant-table",
       "format": "PDF / ePub",
       "language": "English",
-      "tags": ["Weeknight", "Olive oil", "Healthy"],
-      "published": "2026-02-01"
+      "tags": [
+        "Weeknight",
+        "Olive oil",
+        "Healthy"
+      ],
+      "published": "2026-02-01",
+      "paddle_price_id": "pri_XXXXXXXXXXXX"
     }
   ]
 }

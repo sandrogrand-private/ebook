@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pricing — Recipe Gems</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
+  <header class="border-b border-zinc-200/70 bg-white/70 backdrop-blur">
+    <div class="mx-auto max-w-4xl px-4 py-5 flex items-center justify-between gap-3">
+      <a href="./index.html" class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold">RG</div>
+        <div>
+          <div class="text-base font-semibold leading-tight">Recipe Gems</div>
+          <div class="text-sm text-zinc-600 leading-tight">Recipe eBooks</div>
+        </div>
+      </a>
+
+      <nav class="text-sm text-zinc-700 flex items-center gap-4">
+        <a class="hover:text-zinc-900" href="./index.html">Home</a>
+        <a class="hover:text-zinc-900" href="./terms-and-conditions.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 py-10">
+    <div class="rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm">
+      <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">Pricing</h1>
+      <p class="mt-3 text-zinc-600">This page explains what we sell and the typical price range. Prices are shown in <b>USD</b> unless stated otherwise.</p>
+
+      <hr class="my-7 border-zinc-200" />
+
+      <section class="space-y-2">
+        <h2 class="text-lg font-semibold">What we sell</h2>
+        <ul class="list-disc pl-5 text-sm text-zinc-700 space-y-1">
+          <li>Digital recipe eBooks (PDF format; some titles may also include ePub where stated on the product page).</li>
+          <li>Instant digital delivery (download link + email receipt after successful payment).</li>
+          <li>No physical shipping.</li>
+        </ul>
+      </section>
+
+      <section class="mt-8 space-y-2">
+        <h2 class="text-lg font-semibold">Typical prices</h2>
+        <div class="overflow-hidden rounded-2xl border border-zinc-200">
+          <table class="w-full text-sm">
+            <thead class="bg-zinc-50 text-zinc-700">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold">Type</th>
+                <th class="px-4 py-3 text-left font-semibold">Typical price (USD)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200">
+              <tr>
+                <td class="px-4 py-3">Standard recipe eBook</td>
+                <td class="px-4 py-3">$9.00</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">Budget / short titles</td>
+                <td class="px-4 py-3">$2.00 – $5.00</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">Premium / larger titles</td>
+                <td class="px-4 py-3">Up to $15.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-zinc-500">Exact pricing is shown on each product page and at checkout.</p>
+      </section>
+
+      <section class="mt-8 space-y-2">
+        <h2 class="text-lg font-semibold">Taxes & final price</h2>
+        <p class="text-sm text-zinc-700">If sales tax/VAT/GST applies in your location, it is calculated and displayed at checkout. Your receipt shows the final amount you paid.</p>
+      </section>
+
+      <section class="mt-8 space-y-2">
+        <h2 class="text-lg font-semibold">Payments</h2>
+        <p class="text-sm text-zinc-700">Payments are processed by Paddle (Merchant of Record). The available payment methods depend on your country and will be shown at checkout. Your bank or card statement may reference Paddle.</p>
+      </section>
+
+      <section class="mt-8 space-y-2">
+        <h2 class="text-lg font-semibold">Support</h2>
+        <p class="text-sm text-zinc-700">Questions about a purchase, download issues, or refund requests: email <span class="font-mono">support@yourdomain.com</span>.</p>
+        <p class="text-xs text-zinc-500">Replace the email above with your real support address.</p>
+      </section>
+
+      <hr class="my-7 border-zinc-200" />
+
+      <p class="text-xs text-zinc-500">Last updated: 2026-03-01</p>
+    </div>
+  </main>
+
+  <footer class="border-t border-zinc-200/70">
+    <div class="mx-auto max-w-4xl px-4 py-8 text-sm text-zinc-600 flex flex-col sm:flex-row justify-between gap-2">
+      <div>© <span id="year"></span> Recipe Gems</div>
+      <div class="opacity-80 flex flex-wrap gap-x-4 gap-y-1">
+        <a class="hover:text-zinc-900" href="./pricing.html">Pricing</a>
+        <a class="hover:text-zinc-900" href="./terms-and-conditions.html">Terms</a>
+        <a class="hover:text-zinc-900" href="./terms-and-conditions.html#privacy">Privacy</a>
+        <a class="hover:text-zinc-900" href="./terms-and-conditions.html#refund">Refunds</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
