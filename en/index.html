@@ -65,9 +65,7 @@
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
             <a id="heroCtaPrimary" href="#books"
               class="inline-flex justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800"></a>
-            <a id="heroCtaSecondary" href="#faq"
-              class="inline-flex justify-center rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"></a>
-          </div>
+              </div>
         </div>
 
         <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -101,23 +99,6 @@
       <div id="empty" class="hidden mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-zinc-600"></div>
     </section>
 
-    <section id="faq" class="pb-16">
-      <h2 id="howWorksTitle" class="text-xl md:text-2xl font-semibold"></h2>
-      <div class="mt-4 grid gap-4 md:grid-cols-3">
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step1Title" class="font-semibold"></div>
-          <p id="step1Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step2Title" class="font-semibold"></div>
-          <p id="step2Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step3Title" class="font-semibold"></div>
-          <p id="step3Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="border-t border-zinc-200/70">
@@ -145,7 +126,6 @@
     heroTitleHtml: "Beautiful recipe eBooks.<br class='hidden md:block' />Clear steps. Big flavor.",
     heroLead: "Browse the full collection below. Each book includes tested recipes, practical techniques, and a clean layout made for cooking.",
     heroCtaPrimary: "View all books",
-    heroCtaSecondary: "How it works",
 
     searchTitle: "Search",
     searchPlaceholder: "Title, tag, language…",
@@ -157,13 +137,6 @@
     sortAZ: "Title A–Z",
     noMatch: "No books match your search.",
 
-    howWorksHeading: "How it works",
-    step1Title: "1) Add books",
-    step1Desc: "Edit books.json: title, description, cover, buy link.",
-    step2Title: "2) Upload covers",
-    step2Desc: "Put images in /covers (shared) or use direct image URLs.",
-    step3Title: "3) Publish",
-    step3Desc: "Host free on GitHub Pages / Netlify / Cloudflare Pages.",
 
     countOne: "{n} book",
     countMany: "{n} books",
@@ -235,7 +208,6 @@
     el("heroTitle").innerHTML = T.heroTitleHtml;
     el("heroLead").textContent = T.heroLead;
     el("heroCtaPrimary").textContent = T.heroCtaPrimary;
-    el("heroCtaSecondary").textContent = T.heroCtaSecondary;
 
     el("searchTitle").textContent = T.searchTitle;
     el("q").placeholder = T.searchPlaceholder;
@@ -249,13 +221,6 @@
 
     el("empty").textContent = T.noMatch;
 
-    el("howWorksTitle").textContent = T.howWorksHeading;
-    el("step1Title").textContent = T.step1Title;
-    el("step1Desc").textContent = T.step1Desc;
-    el("step2Title").textContent = T.step2Title;
-    el("step2Desc").textContent = T.step2Desc;
-    el("step3Title").textContent = T.step3Title;
-    el("step3Desc").textContent = T.step3Desc;
 
     // footer links (HTML)
     el("footerRight").innerHTML = T.footerRightHtml;
@@ -417,12 +382,22 @@
       }
     };
 
+    const priceRow = document.createElement("div");
+    priceRow.className = "mt-4 flex items-center justify-between";
+    if (book.price_usd) {
+      const priceEl = document.createElement("span");
+      priceEl.className = "text-lg font-bold text-zinc-900";
+      priceEl.textContent = "$" + book.price_usd.toFixed(2);
+      priceRow.appendChild(priceEl);
+    }
+
     actions.appendChild(buy);
     actions.appendChild(copy);
 
     body.appendChild(title);
     body.appendChild(desc);
     body.appendChild(meta);
+    body.appendChild(priceRow);
     body.appendChild(actions);
 
     root.appendChild(coverWrap);
