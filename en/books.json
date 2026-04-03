@@ -25,7 +25,7 @@
       "published": "2026-03-07",
       "paddle_price_id": "pri_01kn92xzg6ax8rsa9je2a9ddbv",
       "price_usd": 2.87,
-      "source": ""
+      "source": "AI"
     },
     {
       "id": "french_laos",
@@ -46,7 +46,7 @@
       "published": "2026-04-03",
       "paddle_price_id": "pri_01kn92y0cn7vyf0pkeg1vs2pvn",
       "price_usd": 1.87,
-      "source": ""
+      "source": "AI"
     },
     {
       "id": "anti_inflammatory_recipes_that_taste_amazing",
@@ -67,7 +67,7 @@
       "published": "2026-04-03",
       "paddle_price_id": "pri_01kn92y19c53rpdrh1b89c4p6j",
       "price_usd": 2.87,
-      "source": ""
+      "source": "AI"
     }
   ]
 }
