@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>50 Anti-Inflammatory Recipes That Taste Amazing</title>
+  <meta name="description" content="Flavor-first recipes powered by whole, anti-inflammatory ingredients — vibrant global dishes from Mediterranean, Middle Eastern, Asian, and Latin traditions that nourish without compromise. Olive oil," />
+  <meta property="og:title" content="50 Anti-Inflammatory Recipes That Taste Amazing" />
+  <meta property="og:description" content="Flavor-first recipes powered by whole, anti-inflammatory ingredients — vibrant global dishes from Mediterranean, Middle Eastern, Asian, and Latin traditions that nourish without compromise. Olive oil," />
+  <meta property="og:image" content="../covers/anti-inflammatory-recipes-that-taste-amazing.png" />
+  <meta name="p:domain_verify" content="58dd1a4ba5931b6aa94461a62f7dca6c"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
+
+  <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
+    <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between gap-3">
+      <a href="../" class="flex items-center gap-3 hover:opacity-80">
+        <div class="h-9 w-9 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold text-sm">RG</div>
+        <span class="text-sm font-semibold">Recipe Ebook Store</span>
+      </a>
+      <a href="../en/" class="text-sm text-zinc-600 hover:text-zinc-900">← Browse all books</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-12">
+    <div class="grid gap-10 md:grid-cols-2 md:items-start">
+
+      <!-- Cover -->
+      <div class="md:sticky md:top-24">
+        <img src="../covers/anti-inflammatory-recipes-that-taste-amazing.png" alt="50 Anti-Inflammatory Recipes That Taste Amazing" class="w-full rounded-2xl shadow-md object-cover" />
+      </div>
+
+      <!-- Info -->
+      <div>
+        <div class="mb-3"><span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1 border bg-blue-50 text-blue-700 border-blue-200">✦ AI-generated recipes</span></div>
+        <h1 class="text-2xl md:text-3xl font-bold leading-snug">50 Anti-Inflammatory Recipes That Taste Amazing</h1>
+        <p class="mt-4 text-zinc-600 leading-relaxed">Flavor-first recipes powered by whole, anti-inflammatory ingredients — vibrant global dishes from Mediterranean, Middle Eastern, Asian, and Latin traditions that nourish without compromise. Olive oil, turmeric, legumes, leafy greens, whole grains, and seafood, all cooked with bold spices and bright citrus.</p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Healthy</span><span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Anti-Inflammatory</span><span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Mediterranean</span><span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Weeknight</span><span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Whole Foods</span><span class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">Global Flavors</span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl bg-zinc-50 border border-zinc-200 p-3">
+            <div class="text-zinc-500">Format</div>
+            <div class="font-medium mt-0.5">PDF / ePub</div>
+          </div>
+          <div class="rounded-xl bg-zinc-50 border border-zinc-200 p-3">
+            <div class="text-zinc-500">Language</div>
+            <div class="font-medium mt-0.5">English</div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-3xl font-bold">$2.87</div>
+
+        <div class="mt-6">
+          <button id="buyBtn"
+          class="w-full rounded-2xl bg-zinc-900 px-6 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-colors">
+          Buy Now  $2.87
+        </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-zinc-200/70 mt-16">
+    <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-zinc-500 flex justify-between">
+      <span>© 2026 Recipe Ebook Store</span>
+      <a href="../en/" class="hover:text-zinc-900">← Browse all books</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      try {
+        Paddle.Initialize({
+          token: "live_a993e4116d50267168369a75b06",
+          checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: "en" } }
+        });
+      } catch(e) { console.warn("Paddle init:", e); }
+
+      document.getElementById("buyBtn").addEventListener("click", function() {
+        try {
+          Paddle.Checkout.open({ items: [{ priceId: "pri_01kn92y19c53rpdrh1b89c4p6j", quantity: 1 }] });
+        } catch(e) {
+          console.warn("Paddle checkout:", e);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
