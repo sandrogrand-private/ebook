@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en">
-<head>
+<html lang="de">
+<head>  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Recipe eBooks</title>
@@ -12,7 +12,7 @@
   <link rel="alternate" hreflang="en" href="../en/" />
   <link rel="alternate" hreflang="fr" href="../fr/" />
   <link rel="alternate" hreflang="de" href="../de/" />
-  <link rel="alternate" hreflang="x-default" href="../en/" />
+  <link rel="alternate" hreflang="x-default" href="../de/" />
 
   <style>
     .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
@@ -31,20 +31,20 @@
       <div class="flex items-center gap-3">
         <div class="h-10 w-10 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold">RG</div>
         <div>
-          <div id="siteTitle" class="text-base font-semibold leading-tight">Recipe eBooks</div>
-          <div id="siteTagline" class="text-sm text-zinc-600 leading-tight">Cookbooks you’ll actually use.</div>
+          <div id="siteTitle" class="text-base font-semibold leading-tight">Rezept eBooks</div>
+          <div id="siteTagline" class="text-sm text-zinc-600 leading-tight">Kochbücher, die Sie wirklich verwenden werden.</div>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <label for="langSelect" class="sr-only" id="langLabel">Language</label>
+        <label for="langSelect" class="sr-only" id="langLabel">Sprache</label>
         <select id="langSelect" class="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm">
           <!-- populated by JS -->
         </select>
 
         <a id="primaryCta" href="#books"
           class="hidden sm:inline-flex items-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
-          Browse books
+          Bücher durchsuchen
         </a>
       </div>
     </div>
@@ -67,7 +67,7 @@
 
         <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
           <div class="flex items-center justify-between gap-3">
-            <div id="searchTitle" class="text-sm font-semibold">Search</div>
+            <div id="searchTitle" class="text-sm font-semibold">Suche</div>
             <div id="countBadge" class="text-xs rounded-full bg-zinc-100 px-3 py-1 text-zinc-700">0</div>
           </div>
 
@@ -83,11 +83,11 @@
 
     <section id="books" class="pb-14">
       <div class="flex items-end justify-between gap-3">
-        <h2 id="booksTitle" class="text-xl md:text-2xl font-semibold">Books</h2>
+        <h2 id="booksTitle" class="text-xl md:text-2xl font-semibold">Bücher</h2>
 
         <select id="sort" class="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm">
-          <option value="new">Newest</option>
-          <option value="az">Title A–Z</option>
+          <option value="new">Neueste</option>
+          <option value="az">Titel A–Z</option>
         </select>
       </div>
 

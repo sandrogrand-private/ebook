@@ -1,0 +1,20 @@
+{
+  "site": {
+    "title": "Recipe Gems — eBooks",
+    "tagline": "Cookbooks designed for real life.",
+    "brand": "Recipe Gems"
+  },
+  "books": [
+    {
+      "id": "anti-inflammatory-50",
+      "title": "Radiant Table: 50 Anti-Inflammatory Recipes",
+      "description": "Bold flavors, weeknight-friendly recipes, and simple techniques built around olive oil, vegetables, legumes, whole grains, and seafood.",
+      "cover": "../covers/radiant-table2.png",
+      "buy_url": "https://your-store-link.com/radiant-table",
+      "format": "PDF / ePub",
+      "language": "English",
+      "tags": ["Weeknight", "Olive oil", "Healthy"],
+      "published": "2026-02-01"
+    }
+  ]
+}

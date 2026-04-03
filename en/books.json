@@ -6,20 +6,61 @@
   },
   "books": [
     {
-      "id": "anti-inflammatory-50",
-      "title": "Radiant Table: 50 Anti-Inflammatory Recipes",
-      "description": "Bold flavors, weeknight-friendly recipes, and simple techniques built around olive oil, vegetables, legumes, whole grains, and seafood.",
-      "cover": "../covers/radiant-table2.png",
-      "buy_url": "https://your-store-link.com/radiant-table",
+      "id": "eat_the_rainbow",
+      "title": "Eat the Rainbow: Vibrant, Antioxidant-Rich Recipes Bursting with Color and Crunch",
+      "description": "Cook 50 vibrant, antioxidant-rich salads, bowls, roasts, soups, smoothies, and fruit desserts packed with crunch, citrusy brightness, and bold spices, in clear metric measures.",
+      "cover": "../covers/eat-the-rainbow.png",
+      "buy_url": "https://www.RecipeEbookStore.com/Eat-the-Rainbow",
       "format": "PDF / ePub",
       "language": "English",
       "tags": [
+        "Healthy",
+        "Plant Forward",
         "Weeknight",
-        "Olive oil",
-        "Healthy"
+        "Meal Prep",
+        "Vibrant Salads",
+        "Smoothies"
       ],
-      "published": "2026-02-01",
-      "paddle_price_id": "pri_XXXXXXXXXXXX"
+      "published": "2026-03-07",
+      "paddle_price_id": ""
+    },
+    {
+      "id": "french_laos",
+      "title": "Luang Prabang Bistro: French Classical Technique Meets Lao & Isan Flavors",
+      "description": "A fusion of French classical method and bold Southeast Asian soul. Confit, velouté, beurre blanc, and terrines reimagined with lemongrass, makrut lime, toasted rice powder, and fermented Lao aromatics. Refined bistro cooking that tastes like a Parisian chef moved to Luang Prabang.",
+      "cover": "../covers/french-laos.png",
+      "buy_url": "https://www.RecipeEbookStore.com/French-Laos",
+      "format": "PDF / ePub",
+      "language": "English",
+      "tags": [
+        "French Cuisine",
+        "Southeast Asian",
+        "Fusion",
+        "Bistro",
+        "Laos",
+        "Thai"
+      ],
+      "published": "2026-04-03",
+      "paddle_price_id": ""
+    },
+    {
+      "id": "anti_inflammatory_recipes_that_taste_amazing",
+      "title": "50 Anti-Inflammatory Recipes That Taste Amazing",
+      "description": "Flavor-first recipes powered by whole, anti-inflammatory ingredients — vibrant global dishes from Mediterranean, Middle Eastern, Asian, and Latin traditions that nourish without compromise. Olive oil, turmeric, legumes, leafy greens, whole grains, and seafood, all cooked with bold spices and bright citrus.",
+      "cover": "../covers/anti-inflammatory-recipes-that-taste-amazing.png",
+      "buy_url": "https://www.RecipeEbookStore.com/Anti-Inflammatory-Recipes-That-Taste-Amazing",
+      "format": "PDF / ePub",
+      "language": "English",
+      "tags": [
+        "Healthy",
+        "Anti-Inflammatory",
+        "Mediterranean",
+        "Weeknight",
+        "Whole Foods",
+        "Global Flavors"
+      ],
+      "published": "2026-04-03",
+      "paddle_price_id": ""
     }
   ]
 }
