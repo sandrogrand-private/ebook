@@ -14,9 +14,15 @@
       "buy_url": "https://www.RecipeEbookStore.com/Anti-Inflammatory-Recipes-That-Taste-Amazing-in-French",
       "format": "PDF / ePub",
       "language": "French",
-      "tags": [],
+      "tags": [
+        "Anti-Inflammatoire",
+        "Cuisine Du Monde",
+        "Semaine Facile",
+        "Healthy Gourmand",
+        "Repas Équilibrés"
+      ],
       "published": "2026-04-03",
-      "paddle_price_id": ""
+      "paddle_price_id": "pri_01kn92y25jep9ectvb00pw0tmd"
     }
   ]
 }
