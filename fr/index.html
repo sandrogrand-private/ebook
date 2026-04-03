@@ -319,6 +319,20 @@
     title.className = "text-base font-semibold leading-snug";
     title.textContent = book.title || "Untitled";
 
+    const sourceBadge = document.createElement("div");
+    sourceBadge.className = "mt-2";
+    if (book.source === "Chef") {
+      const b = document.createElement("span");
+      b.className = "inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200";
+      b.textContent = "👨‍🍳 Recettes de chef";
+      sourceBadge.appendChild(b);
+    } else if (book.source === "AI") {
+      const b = document.createElement("span");
+      b.className = "inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-200";
+      b.textContent = "✦ Recettes générées par IA";
+      sourceBadge.appendChild(b);
+    }
+
     const desc = document.createElement("p");
     desc.className = "mt-2 text-sm text-zinc-600 leading-relaxed clamp-4";
     desc.textContent = book.description || "";
@@ -389,6 +403,7 @@
     actions.appendChild(copy);
 
     body.appendChild(title);
+    body.appendChild(sourceBadge);
     body.appendChild(desc);
     body.appendChild(meta);
     body.appendChild(priceRow);
