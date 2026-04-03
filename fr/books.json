@@ -2,7 +2,8 @@
   "site": {
     "title": "Recipe Ebook Store",
     "tagline": "Cookbooks designed for real life.",
-    "brand": "Recipe Ebook Store"
+    "brand": "Recipe Ebook Store",
+    "paddle_client_side_token": "live_a993e4116d50267168369a75b06"
   },
   "books": [
     {

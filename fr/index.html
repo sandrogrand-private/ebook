@@ -8,6 +8,9 @@
   <!-- Tailwind CDN (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Paddle.js (payments via Paddle) -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
   <!-- Optional SEO: adjust to your languages -->
   <link rel="alternate" hreflang="en" href="../en/" />
   <link rel="alternate" hreflang="fr" href="../fr/" />
@@ -175,6 +178,45 @@
 
   const state = { data: null, query: "", activeTag: null, sort: "new" };
 
+  // --------------------- PADDLE ---------------------
+  function getPaddleToken() {
+    return (state.data?.site?.paddle_client_side_token || "").trim();
+  }
+
+  function paddleEnabled() {
+    return /^(test|live)_[A-Za-z0-9]+/.test(getPaddleToken());
+  }
+
+  function initPaddle() {
+    if (!paddleEnabled()) return;
+    if (!window.Paddle) return;
+    try {
+      const token = getPaddleToken();
+      if (token.startsWith("test_") && Paddle.Environment && typeof Paddle.Environment.set === "function") {
+        Paddle.Environment.set("sandbox");
+      }
+      Paddle.Initialize({
+        token,
+        checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: LANG } }
+      });
+    } catch (e) {
+      console.warn("Paddle init failed:", e);
+    }
+  }
+
+  function openPaddleCheckout(priceId) {
+    if (!paddleEnabled()) return false;
+    if (!window.Paddle || !priceId) return false;
+    try {
+      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
+      return true;
+    } catch (e) {
+      console.warn("Paddle checkout failed:", e);
+      return false;
+    }
+  }
+  // ---------------------------------------------------
+
   function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
   function countLabel(n) {
     const tpl = (n === 1 ? T.countOne : T.countMany);
@@ -334,12 +376,26 @@
     const actions = document.createElement("div");
     actions.className = "mt-5 flex gap-2";
 
-    const buy = document.createElement("a");
-    buy.href = book.buy_url || "#";
-    buy.target = "_blank";
-    buy.rel = "noopener";
-    buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
-    buy.textContent = T.buyButton;
+    const priceId = book.paddle_price_id || book.paddle_priceId || "";
+    let buy;
+
+    if (priceId && paddleEnabled()) {
+      buy = document.createElement("button");
+      buy.type = "button";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+      buy.onclick = () => {
+        const ok = openPaddleCheckout(priceId);
+        if (!ok && book.buy_url) window.open(book.buy_url, "_blank", "noopener");
+      };
+    } else {
+      buy = document.createElement("a");
+      buy.href = book.buy_url || "#";
+      buy.target = "_blank";
+      buy.rel = "noopener";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+    }
 
     const copy = document.createElement("button");
     copy.className = "rounded-xl border border-zinc-300 px-3 py-2.5 text-sm font-semibold hover:bg-zinc-50";
@@ -399,6 +455,8 @@
 
     // Optional: use site title as document title
     if (state.data.site?.title) document.title = state.data.site.title;
+
+    initPaddle(); // after fetch — token comes from state.data.site
 
     el("q").addEventListener("input", (e) => { state.query = e.target.value; render(); });
     el("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });

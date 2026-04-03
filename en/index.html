@@ -180,36 +180,27 @@
 
   const state = { data: null, query: "", activeTag: null, sort: "new" };
 
-  // --------------------- PADDLE (optional) ---------------------
-  // 1) Create a client-side token in Paddle: Developer tools > Authentication
-  // 2) Paste it below (starts with test_ for sandbox or live_ for production)
-  const PADDLE_CLIENT_SIDE_TOKEN = ""; // e.g. "test_xxx" or "live_xxx"
+  // --------------------- PADDLE ---------------------
+  // Token is read from books.json > site.paddle_client_side_token
+  function getPaddleToken() {
+    return (state.data?.site?.paddle_client_side_token || "").trim();
+  }
 
   function paddleEnabled() {
-    return /^(test|live)_[A-Za-z0-9]+/.test((PADDLE_CLIENT_SIDE_TOKEN || "").trim());
+    return /^(test|live)_[A-Za-z0-9]+/.test(getPaddleToken());
   }
 
   function initPaddle() {
     if (!paddleEnabled()) return;
     if (!window.Paddle) return;
-
     try {
-      // Sandbox only — remove for production (Paddle defaults to production when not set)
-      if (PADDLE_CLIENT_SIDE_TOKEN.trim().startsWith("test_") &&
-          Paddle.Environment && typeof Paddle.Environment.set === "function") {
+      const token = getPaddleToken();
+      if (token.startsWith("test_") && Paddle.Environment && typeof Paddle.Environment.set === "function") {
         Paddle.Environment.set("sandbox");
       }
-
       Paddle.Initialize({
-        token: PADDLE_CLIENT_SIDE_TOKEN.trim(),
-        checkout: {
-          settings: {
-            displayMode: "overlay",
-            variant: "one-page",
-            theme: "light",
-            locale: LANG
-          }
-        }
+        token,
+        checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: LANG } }
       });
     } catch (e) {
       console.warn("Paddle init failed:", e);
@@ -219,18 +210,15 @@
   function openPaddleCheckout(priceId) {
     if (!paddleEnabled()) return false;
     if (!window.Paddle || !priceId) return false;
-
     try {
-      Paddle.Checkout.open({
-        items: [{ priceId, quantity: 1 }]
-      });
+      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
       return true;
     } catch (e) {
       console.warn("Paddle checkout failed:", e);
       return false;
     }
   }
-  // -------------------------------------------------------------
+  // ---------------------------------------------------
 
 
   function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
@@ -463,8 +451,6 @@
     applyTranslations();
     setupLanguageSwitcher();
 
-    initPaddle();
-
     const res = await fetch("./books.json", { cache: "no-store" });
     state.data = await res.json();
 
@@ -475,6 +461,8 @@
 
     // Optional: use site title as document title
     if (state.data.site?.title) document.title = state.data.site.title;
+
+    initPaddle(); // after fetch — token comes from state.data.site
 
     el("q").addEventListener("input", (e) => { state.query = e.target.value; render(); });
     el("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
