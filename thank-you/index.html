@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank you — Recipe Ebook Store</title>
+  <meta name="robots" content="noindex" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
+
+  <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
+    <div class="mx-auto max-w-3xl px-4 py-4 flex items-center gap-3">
+      <a href="/en/" class="flex items-center gap-3 hover:opacity-80">
+        <div class="h-9 w-9 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold text-sm">RG</div>
+        <span class="text-sm font-semibold">Recipe Ebook Store</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-4 py-16 text-center">
+
+    <!-- Success state -->
+    <div id="successBlock" class="hidden">
+      <div class="text-5xl mb-6">🎉</div>
+      <h1 class="text-3xl font-bold">Thank you for your purchase!</h1>
+      <p class="mt-4 text-zinc-600 text-lg">Your eBook is ready to download.</p>
+
+      <div class="mt-10 rounded-3xl border border-zinc-200 bg-white shadow-sm p-8 text-left max-w-lg mx-auto">
+        <p id="bookTitle" class="font-semibold text-lg"></p>
+        <p class="mt-1 text-sm text-zinc-500">Click the button below to download your PDF.</p>
+        <a id="downloadBtn" href="#"
+          class="mt-6 flex justify-center rounded-2xl bg-zinc-900 px-6 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-colors">
+          ⬇ Download your eBook (PDF)
+        </a>
+        <p class="mt-4 text-xs text-zinc-400 text-center">
+          A confirmation email has also been sent to you by Paddle.<br>
+          If you have any issues, contact us at <a href="mailto:support@recipeebookstore.com" class="underline">support@recipeebookstore.com</a>.
+        </p>
+      </div>
+
+      <a href="/en/" class="mt-10 inline-block text-sm text-zinc-500 hover:text-zinc-900">← Browse more books</a>
+    </div>
+
+    <!-- No download link state -->
+    <div id="noLinkBlock" class="hidden">
+      <div class="text-5xl mb-6">✅</div>
+      <h1 class="text-3xl font-bold">Thank you for your purchase!</h1>
+      <p class="mt-4 text-zinc-600 text-lg max-w-md mx-auto">
+        Your order is confirmed. You will receive a download link by email shortly.
+      </p>
+      <p class="mt-4 text-sm text-zinc-400">
+        Questions? <a href="mailto:support@recipeebookstore.com" class="underline">support@recipeebookstore.com</a>
+      </p>
+      <a href="/en/" class="mt-10 inline-block text-sm text-zinc-500 hover:text-zinc-900">← Browse more books</a>
+    </div>
+
+    <!-- Error / direct access state -->
+    <div id="errorBlock">
+      <div class="text-5xl mb-6">📚</div>
+      <h1 class="text-3xl font-bold">Recipe Ebook Store</h1>
+      <p class="mt-4 text-zinc-600">Browse our collection of recipe eBooks.</p>
+      <a href="/en/" class="mt-8 inline-flex rounded-2xl bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
+        Browse books
+      </a>
+    </div>
+
+  </main>
+
+<script>
+  // Paddle passes transaction data to the success URL as query params
+  // We encode the book title and pdf_url into the successUrl when opening checkout
+  // e.g. /thank-you/?title=Eat+the+Rainbow&dl=https%3A%2F%2F...
+
+  const params = new URLSearchParams(window.location.search);
+  const title  = params.get("title") || "";
+  const dl     = params.get("dl") || "";
+
+  const successBlock = document.getElementById("successBlock");
+  const noLinkBlock  = document.getElementById("noLinkBlock");
+  const errorBlock   = document.getElementById("errorBlock");
+
+  if (title || dl) {
+    errorBlock.classList.add("hidden");
+
+    if (dl) {
+      successBlock.classList.remove("hidden");
+      document.getElementById("bookTitle").textContent = title || "Your eBook";
+      document.getElementById("downloadBtn").href = dl;
+    } else {
+      noLinkBlock.classList.remove("hidden");
+    }
+  }
+  // else: show errorBlock (default, already visible)
+</script>
+</body>
+</html>

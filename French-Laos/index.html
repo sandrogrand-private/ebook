@@ -86,7 +86,11 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          Paddle.Checkout.open({ items: [{ priceId: "pri_01kn92y0cn7vyf0pkeg1vs2pvn", quantity: 1 }] });
+          const successUrl = window.location.origin + "/thank-you/?" + "title=Luang+Prabang+Bistro%3A+French+Classical+Technique+Meets+Lao+%26+Isan+Flavors";
+          Paddle.Checkout.open({
+            items: [{ priceId: "pri_01kn92y0cn7vyf0pkeg1vs2pvn", quantity: 1 }],
+            settings: { successUrl }
+          });
         } catch(e) {
           console.warn("Paddle checkout:", e);
         }

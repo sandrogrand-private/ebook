@@ -180,11 +180,18 @@
     }
   }
 
-  function openPaddleCheckout(priceId) {
+  function openPaddleCheckout(priceId, title, pdfUrl) {
     if (!paddleEnabled()) return false;
     if (!window.Paddle || !priceId) return false;
     try {
-      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
+      const successParams = new URLSearchParams();
+      if (title)  successParams.set("title", title);
+      if (pdfUrl) successParams.set("dl", pdfUrl);
+      const successUrl = `${window.location.origin}/thank-you/?${successParams.toString()}`;
+      Paddle.Checkout.open({
+        items: [{ priceId, quantity: 1 }],
+        settings: { successUrl }
+      });
       return true;
     } catch (e) {
       console.warn("Paddle checkout failed:", e);
@@ -369,8 +376,7 @@
       buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
       buy.textContent = T.buyButton;
       buy.onclick = () => {
-        const ok = openPaddleCheckout(priceId);
-        // Fallback: if Paddle isn't configured correctly yet, open the old link
+        const ok = openPaddleCheckout(priceId, book.title, book.pdf_url);
         if (!ok && book.buy_url) window.open(book.buy_url, "_blank", "noopener");
       };
     } else {

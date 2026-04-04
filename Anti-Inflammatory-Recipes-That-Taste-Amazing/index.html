@@ -86,7 +86,11 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          Paddle.Checkout.open({ items: [{ priceId: "pri_01kn92y19c53rpdrh1b89c4p6j", quantity: 1 }] });
+          const successUrl = window.location.origin + "/thank-you/?" + "title=50+Anti-Inflammatory+Recipes+That+Taste+Amazing";
+          Paddle.Checkout.open({
+            items: [{ priceId: "pri_01kn92y19c53rpdrh1b89c4p6j", quantity: 1 }],
+            settings: { successUrl }
+          });
         } catch(e) {
           console.warn("Paddle checkout:", e);
         }

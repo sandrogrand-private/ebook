@@ -86,7 +86,11 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          Paddle.Checkout.open({ items: [{ priceId: "pri_01kn92y25jep9ectvb00pw0tmd", quantity: 1 }] });
+          const successUrl = window.location.origin + "/thank-you/?" + "title=Table+radieuse+%3A+50+recettes+anti-inflammatoires+pour+le+plaisir+au+quotidien+%E2%80%94+Une+cuisine+savoureuse%2C+color%C3%A9e+et+r%C3%A9guli%C3%A8re%2C+inspir%C3%A9e+des+saveurs+du+monde+entier";
+          Paddle.Checkout.open({
+            items: [{ priceId: "pri_01kn92y25jep9ectvb00pw0tmd", quantity: 1 }],
+            settings: { successUrl }
+          });
         } catch(e) {
           console.warn("Paddle checkout:", e);
         }
