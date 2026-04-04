@@ -101,7 +101,7 @@
 
   <footer class="border-t border-zinc-200/70">
     <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-zinc-600 flex flex-col sm:flex-row justify-between gap-2">
-      <div>© <span id="year"></span> <span id="footerBrand">Recipe Gems</span></div>
+      <div>© <span id="year"></span> <span id="footerBrand">Recipe Ebook Store</span></div>
       <div id="footerRight" class="opacity-80"></div>
     </div>
   </footer>
@@ -117,33 +117,33 @@
   ];
 
   const T = {
-    pageTitle: "Recipe eBooks",
-    langLabel: "Language",
-    headerCta: "Browse books",
+    pageTitle: "Livres de Recettes",
+    langLabel: "Langue",
+    headerCta: "Voir les livres",
 
-    heroTitleHtml: "Beautiful recipe eBooks.<br class='hidden md:block' />Clear steps. Big flavor.",
-    heroLead: "Browse the full collection below. Each book includes tested recipes, practical techniques, and a clean layout made for cooking.",
-    heroCtaPrimary: "View all books",
+    heroTitleHtml: "De beaux livres de recettes.<br class='hidden md:block' />Des étapes claires. De vraies saveurs.",
+    heroLead: "Parcourez toute la collection ci-dessous. Chaque livre contient des recettes testées, des techniques pratiques et une mise en page claire, faite pour cuisiner.",
+    heroCtaPrimary: "Voir tous les livres",
 
-    searchTitle: "Search",
-    searchPlaceholder: "Title, tag, language…",
+    searchTitle: "Recherche",
+    searchPlaceholder: "Titre, étiquette, langue…",
     tipHtml: "Tip: keep your catalog in <span class='font-mono'>books.json</span> and the page updates automatically.",
 
-    tagAll: "All",
-    booksHeading: "Books",
-    sortNewest: "Newest",
-    sortAZ: "Title A–Z",
-    noMatch: "No books match your search.",
+    tagAll: "Tous",
+    booksHeading: "Livres",
+    sortNewest: "Plus récents",
+    sortAZ: "Titre A–Z",
+    noMatch: "Aucun livre ne correspond à votre recherche.",
 
 
-    countOne: "{n} book",
-    countMany: "{n} books",
+    countOne: "{n} livre",
+    countMany: "{n} livres",
 
-    buyButton: "Buy / Download",
-    copyLink: "Copy link",
-    copied: "Copied",
+    buyButton: "Acheter / Télécharger",
+    copyLink: "Copier le lien",
+    copied: "Copié",
     coverMissingTitle: "Add a cover image",
-    footerRight: "Made with a simple JSON catalog."
+    footerRight: ""
   };
   // ------------------------------------------------------------------------------
 
@@ -457,7 +457,7 @@
     // per-language site strings from books.json
     if (state.data.site?.title) el("siteTitle").textContent = state.data.site.title;
     if (state.data.site?.tagline) el("siteTagline").textContent = state.data.site.tagline;
-    el("footerBrand").textContent = (state.data.site?.brand || state.data.site?.title || "Recipe Gems");
+    el("footerBrand").textContent = (state.data.site?.brand || state.data.site?.title || "Recipe Ebook Store");
 
     // Optional: use site title as document title
     if (state.data.site?.title) document.title = state.data.site.title;
