@@ -1,18 +1,17 @@
 <!doctype html>
 <html lang="de">
-<head>  
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Recipe eBooks</title>
+  <title>Rezept eBooks</title>
 
-  <!-- Tailwind CDN (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 
-  <!-- Optional SEO: adjust to your languages -->
   <link rel="alternate" hreflang="en" href="../en/" />
   <link rel="alternate" hreflang="fr" href="../fr/" />
   <link rel="alternate" hreflang="de" href="../de/" />
-  <link rel="alternate" hreflang="x-default" href="../de/" />
+  <link rel="alternate" hreflang="x-default" href="../en/" />
 
   <style>
     .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
@@ -23,16 +22,17 @@
       overflow: hidden;
     }
   </style>
+  <meta name="p:domain_verify" content="58dd1a4ba5931b6aa94461a62f7dca6c"/>
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-zinc-50 to-white text-zinc-900">
   <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
     <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold">RG</div>
+        <img src="../recipeebookstore_logo.png" alt="Recipe Ebook Store" class="h-10 w-10 rounded-2xl object-contain" />
         <div>
           <div id="siteTitle" class="text-base font-semibold leading-tight">Rezept eBooks</div>
-          <div id="siteTagline" class="text-sm text-zinc-600 leading-tight">Kochbücher, die Sie wirklich verwenden werden.</div>
+          <div id="siteTagline" class="text-sm text-zinc-600 leading-tight">Kochbücher, die man wirklich benutzt.</div>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
 
         <a id="primaryCta" href="#books"
           class="hidden sm:inline-flex items-center rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
-          Bücher durchsuchen
+          Bücher ansehen
         </a>
       </div>
     </div>
@@ -60,8 +60,6 @@
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
             <a id="heroCtaPrimary" href="#books"
               class="inline-flex justify-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800"></a>
-            <a id="heroCtaSecondary" href="#faq"
-              class="inline-flex justify-center rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"></a>
           </div>
         </div>
 
@@ -95,36 +93,17 @@
 
       <div id="empty" class="hidden mt-10 rounded-2xl border border-zinc-200 bg-white p-6 text-zinc-600"></div>
     </section>
-
-    <section id="faq" class="pb-16">
-      <h2 id="howWorksTitle" class="text-xl md:text-2xl font-semibold"></h2>
-      <div class="mt-4 grid gap-4 md:grid-cols-3">
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step1Title" class="font-semibold"></div>
-          <p id="step1Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step2Title" class="font-semibold"></div>
-          <p id="step2Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5">
-          <div id="step3Title" class="font-semibold"></div>
-          <p id="step3Desc" class="mt-1 text-sm text-zinc-600"></p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="border-t border-zinc-200/70">
     <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-zinc-600 flex flex-col sm:flex-row justify-between gap-2">
-      <div>© <span id="year"></span> <span id="footerBrand">Recipe Gems</span></div>
+      <div>© <span id="year"></span> <span id="footerBrand">Recipe Ebook Store</span></div>
       <div id="footerRight" class="opacity-80"></div>
     </div>
   </footer>
 
 <script>
-  // --------- PER-LANGUAGE SETTINGS (edit these in each language folder) ----------
-  const LANG = "en";
+  const LANG = "de";
 
   const LANGUAGES = [
     { code: "en", label: "English" },
@@ -133,85 +112,92 @@
   ];
 
   const T = {
-    pageTitle: "Recipe eBooks",
-    langLabel: "Language",
-    headerCta: "Browse books",
+    pageTitle: "Rezept eBooks",
+    langLabel: "Sprache",
+    headerCta: "Bücher ansehen",
 
-    heroTitleHtml: "Beautiful recipe eBooks.<br class='hidden md:block' />Clear steps. Big flavor.",
-    heroLead: "Browse the full collection below. Each book includes tested recipes, practical techniques, and a clean layout made for cooking.",
-    heroCtaPrimary: "View all books",
-    heroCtaSecondary: "How it works",
+    heroTitleHtml: "Schöne Rezept-eBooks.<br class='hidden md:block' />Klare Schritte. Echter Geschmack.",
+    heroLead: "Entdecken Sie unsere Sammlung. Jedes Buch enthält erprobte Rezepte, praktische Techniken und ein übersichtliches Layout – gemacht zum Kochen.",
+    heroCtaPrimary: "Alle Bücher anzeigen",
 
-    searchTitle: "Search",
-    searchPlaceholder: "Title, tag, language…",
-    tipHtml: "Tip: keep your catalog in <span class='font-mono'>books.json</span> and the page updates automatically.",
+    searchTitle: "Suche",
+    searchPlaceholder: "Titel, Schlagwort, Sprache…",
+    tipHtml: "",
 
-    tagAll: "All",
-    booksHeading: "Books",
-    sortNewest: "Newest",
-    sortAZ: "Title A–Z",
-    noMatch: "No books match your search.",
+    tagAll: "Alle",
+    booksHeading: "Bücher",
+    sortNewest: "Neueste",
+    sortAZ: "Titel A–Z",
+    noMatch: "Keine Bücher gefunden.",
 
-    howWorksHeading: "How it works",
-    step1Title: "1) Add books",
-    step1Desc: "Edit books.json: title, description, cover, buy link.",
-    step2Title: "2) Upload covers",
-    step2Desc: "Put images in /covers (shared) or use direct image URLs.",
-    step3Title: "3) Publish",
-    step3Desc: "Host free on GitHub Pages / Netlify / Cloudflare Pages.",
+    countOne: "{n} Buch",
+    countMany: "{n} Bücher",
 
-    countOne: "{n} book",
-    countMany: "{n} books",
-
-    buyButton: "Buy / Download",
-    copyLink: "Copy link",
-    copied: "Copied",
-    coverMissingTitle: "Add a cover image",
-    footerRight: "Made with a simple JSON catalog."
+    buyButton: "Kaufen / Herunterladen",
+    copyLink: "Link kopieren",
+    copied: "Kopiert",
+    coverMissingTitle: "Titelbild fehlt",
+    footerRight: ""
   };
-  // ------------------------------------------------------------------------------
 
   const el = (id) => document.getElementById(id);
-
   const state = { data: null, query: "", activeTag: null, sort: "new" };
+
+  // --------------------- PADDLE ---------------------
+  function getPaddleToken() {
+    return (state.data?.site?.paddle_client_side_token || "").trim();
+  }
+  function paddleEnabled() {
+    return /^(test|live)_[A-Za-z0-9]+/.test(getPaddleToken());
+  }
+  function initPaddle() {
+    if (!paddleEnabled()) return;
+    if (!window.Paddle) return;
+    try {
+      const token = getPaddleToken();
+      if (token.startsWith("test_") && Paddle.Environment && typeof Paddle.Environment.set === "function") {
+        Paddle.Environment.set("sandbox");
+      }
+      Paddle.Initialize({
+        token,
+        checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: LANG } }
+      });
+    } catch (e) { console.warn("Paddle init failed:", e); }
+  }
+  function openPaddleCheckout(priceId, title, pdfUrl) {
+    if (!paddleEnabled()) return false;
+    if (!window.Paddle || !priceId) return false;
+    try {
+      const successParams = new URLSearchParams();
+      if (title)  successParams.set("title", title);
+      if (pdfUrl) successParams.set("dl", pdfUrl);
+      const successUrl = `${window.location.origin}/thank-you/?${successParams.toString()}`;
+      Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }], settings: { successUrl } });
+      return true;
+    } catch (e) { console.warn("Paddle checkout failed:", e); return false; }
+  }
+  // ---------------------------------------------------
 
   function normalize(s) { return (s || "").toString().toLowerCase().trim(); }
   function countLabel(n) {
-    const tpl = (n === 1 ? T.countOne : T.countMany);
-    return tpl.replace("{n}", n);
+    return (n === 1 ? T.countOne : T.countMany).replace("{n}", n);
   }
 
   function applyTranslations() {
     document.title = T.pageTitle;
     el("langLabel").textContent = T.langLabel;
     el("primaryCta").textContent = T.headerCta;
-
     el("heroTitle").innerHTML = T.heroTitleHtml;
     el("heroLead").textContent = T.heroLead;
     el("heroCtaPrimary").textContent = T.heroCtaPrimary;
-    el("heroCtaSecondary").textContent = T.heroCtaSecondary;
-
     el("searchTitle").textContent = T.searchTitle;
     el("q").placeholder = T.searchPlaceholder;
-    el("tipText").innerHTML = T.tipHtml;
-
+    if (T.tipHtml) el("tipText").innerHTML = T.tipHtml;
     el("booksTitle").textContent = T.booksHeading;
-
-    const sortSel = el("sort");
-    sortSel.querySelector("option[value='new']").textContent = T.sortNewest;
-    sortSel.querySelector("option[value='az']").textContent = T.sortAZ;
-
+    el("sort").querySelector("option[value='new']").textContent = T.sortNewest;
+    el("sort").querySelector("option[value='az']").textContent = T.sortAZ;
     el("empty").textContent = T.noMatch;
-
-    el("howWorksTitle").textContent = T.howWorksHeading;
-    el("step1Title").textContent = T.step1Title;
-    el("step1Desc").textContent = T.step1Desc;
-    el("step2Title").textContent = T.step2Title;
-    el("step2Desc").textContent = T.step2Desc;
-    el("step3Title").textContent = T.step3Title;
-    el("step3Desc").textContent = T.step3Desc;
-
-    el("footerRight").textContent = T.footerRight;
+    if (T.footerRight) el("footerRight").textContent = T.footerRight;
   }
 
   function setupLanguageSwitcher() {
@@ -224,7 +210,6 @@
       select.appendChild(opt);
     });
     select.value = LANG;
-
     select.addEventListener("change", () => {
       const code = select.value;
       const dest = new URL(`../${code}/`, window.location.href);
@@ -236,21 +221,17 @@
   function renderTags(books) {
     const tagSet = new Set();
     books.forEach(b => (b.tags || []).forEach(t => tagSet.add(t)));
-    const tags = Array.from(tagSet).sort((a,b) => a.localeCompare(b));
-
+    const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b));
     const row = el("tagRow");
     row.innerHTML = "";
-
     const mkBtn = (label, tag) => {
       const btn = document.createElement("button");
-      btn.className =
-        "text-xs rounded-full border px-3 py-1.5 hover:bg-zinc-50 " +
+      btn.className = "text-xs rounded-full border px-3 py-1.5 hover:bg-zinc-50 " +
         (state.activeTag === tag ? "border-zinc-900 bg-zinc-900 text-white" : "border-zinc-300 text-zinc-700");
       btn.textContent = label;
       btn.onclick = () => { state.activeTag = (state.activeTag === tag) ? null : tag; render(); };
       return btn;
     };
-
     row.appendChild(mkBtn(T.tagAll, null));
     tags.forEach(t => row.appendChild(mkBtn(t, t)));
   }
@@ -258,23 +239,14 @@
   function bookMatches(b) {
     const q = normalize(state.query);
     if (!q && !state.activeTag) return true;
-
-    const hay = [
-      b.title, b.description, b.language, b.format,
-      ...(b.tags || [])
-    ].map(normalize).join(" • ");
-
+    const hay = [b.title, b.description, b.language, b.format, ...(b.tags || [])].map(normalize).join(" • ");
     const tagOk = state.activeTag ? (b.tags || []).includes(state.activeTag) : true;
-    const qOk = q ? hay.includes(q) : true;
-
-    return tagOk && qOk;
+    return tagOk && (q ? hay.includes(q) : true);
   }
 
   function sortBooks(list) {
-    if (state.sort === "az") {
-      return [...list].sort((a,b) => (a.title || "").localeCompare(b.title || ""));
-    }
-    return [...list].sort((a,b) => normalize(b.published).localeCompare(normalize(a.published)));
+    if (state.sort === "az") return [...list].sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+    return [...list].sort((a, b) => normalize(b.published).localeCompare(normalize(a.published)));
   }
 
   function makeCoverFallback(coverWrap, hint) {
@@ -292,7 +264,6 @@
 
     const coverWrap = document.createElement("div");
     coverWrap.className = "aspect-[4/5] bg-zinc-100 overflow-hidden";
-
     if (book.cover) {
       const img = document.createElement("img");
       img.src = book.cover;
@@ -310,7 +281,21 @@
 
     const title = document.createElement("h3");
     title.className = "text-base font-semibold leading-snug";
-    title.textContent = book.title || "Untitled";
+    title.textContent = book.title || "Ohne Titel";
+
+    const sourceBadge = document.createElement("div");
+    sourceBadge.className = "mt-2";
+    if (book.source === "Chef") {
+      const b = document.createElement("span");
+      b.className = "inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200";
+      b.textContent = "👨‍🍳 Chefrezepte";
+      sourceBadge.appendChild(b);
+    } else if (book.source === "AI") {
+      const b = document.createElement("span");
+      b.className = "inline-flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-200";
+      b.textContent = "✦ KI-generierte Rezepte";
+      sourceBadge.appendChild(b);
+    }
 
     const desc = document.createElement("p");
     desc.className = "mt-2 text-sm text-zinc-600 leading-relaxed clamp-4";
@@ -318,7 +303,6 @@
 
     const meta = document.createElement("div");
     meta.className = "mt-4 flex flex-wrap gap-2";
-
     const addPill = (text) => {
       if (!text) return;
       const s = document.createElement("span");
@@ -326,41 +310,70 @@
       s.textContent = text;
       meta.appendChild(s);
     };
-
     addPill(book.language);
     addPill(book.format);
-    (book.tags || []).slice(0,3).forEach(addPill);
+    if (book.recipe_count) addPill(book.recipe_count + " Rezepte");
+    (book.tags || []).slice(0, 3).forEach(addPill);
 
     const actions = document.createElement("div");
     actions.className = "mt-5 flex gap-2";
 
-    const buy = document.createElement("a");
-    buy.href = book.buy_url || "#";
-    buy.target = "_blank";
-    buy.rel = "noopener";
-    buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
-    buy.textContent = T.buyButton;
+    const priceId = book.paddle_price_id || book.paddle_priceId || "";
+    let buy;
+    if (priceId && paddleEnabled()) {
+      buy = document.createElement("button");
+      buy.type = "button";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+      buy.onclick = () => {
+        const ok = openPaddleCheckout(priceId, book.title, book.pdf_url);
+        if (!ok && book.buy_url) window.open(book.buy_url, "_blank", "noopener");
+      };
+    } else {
+      buy = document.createElement("a");
+      buy.href = book.buy_url || "#";
+      buy.target = "_blank";
+      buy.rel = "noopener";
+      buy.className = "inline-flex flex-1 justify-center rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800";
+      buy.textContent = T.buyButton;
+    }
 
     const copy = document.createElement("button");
     copy.className = "rounded-xl border border-zinc-300 px-3 py-2.5 text-sm font-semibold hover:bg-zinc-50";
     copy.textContent = T.copyLink;
     copy.onclick = async () => {
-      const url = book.buy_url || "";
       try {
-        await navigator.clipboard.writeText(url);
+        await navigator.clipboard.writeText(book.buy_url || "");
         copy.textContent = T.copied;
         setTimeout(() => copy.textContent = T.copyLink, 900);
-      } catch {
-        // fallback: do nothing
-      }
+      } catch { }
     };
+
+    const priceRow = document.createElement("div");
+    priceRow.className = "mt-4 flex items-center justify-between";
+    if (book.price_usd) {
+      const priceEl = document.createElement("span");
+      priceEl.className = "text-lg font-bold text-zinc-900";
+      priceEl.textContent = "$" + book.price_usd.toFixed(2);
+      priceRow.appendChild(priceEl);
+    }
+    if (book.recipe_count) {
+      const slug = (book.buy_url || "").split("/").pop() || book.id;
+      const recipeLink = document.createElement("a");
+      recipeLink.href = "/" + slug + "/recipes/";
+      recipeLink.className = "text-xs text-zinc-500 hover:text-zinc-900 hover:underline";
+      recipeLink.textContent = "Alle " + book.recipe_count + " Rezepte →";
+      priceRow.appendChild(recipeLink);
+    }
 
     actions.appendChild(buy);
     actions.appendChild(copy);
 
     body.appendChild(title);
+    body.appendChild(sourceBadge);
     body.appendChild(desc);
     body.appendChild(meta);
+    body.appendChild(priceRow);
     body.appendChild(actions);
 
     root.appendChild(coverWrap);
@@ -371,34 +384,28 @@
   function render() {
     const books = state.data?.books || [];
     const filtered = sortBooks(books.filter(bookMatches));
-
     el("countBadge").textContent = countLabel(filtered.length);
-
     const grid = el("grid");
     grid.innerHTML = "";
     filtered.forEach(b => grid.appendChild(card(b)));
-
     el("empty").classList.toggle("hidden", filtered.length !== 0);
-
     renderTags(books);
   }
 
   async function init() {
     el("year").textContent = new Date().getFullYear();
-
     applyTranslations();
     setupLanguageSwitcher();
 
     const res = await fetch("./books.json", { cache: "no-store" });
     state.data = await res.json();
 
-    // per-language site strings from books.json
     if (state.data.site?.title) el("siteTitle").textContent = state.data.site.title;
     if (state.data.site?.tagline) el("siteTagline").textContent = state.data.site.tagline;
-    el("footerBrand").textContent = (state.data.site?.brand || state.data.site?.title || "Recipe Gems");
-
-    // Optional: use site title as document title
+    el("footerBrand").textContent = (state.data.site?.brand || state.data.site?.title || "Recipe Ebook Store");
     if (state.data.site?.title) document.title = state.data.site.title;
+
+    initPaddle();
 
     el("q").addEventListener("input", (e) => { state.query = e.target.value; render(); });
     el("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
@@ -409,7 +416,7 @@
   init().catch(err => {
     console.error(err);
     document.body.innerHTML =
-      "<div style='padding:24px;font-family:system-ui'>Could not load <b>books.json</b>. Make sure it’s in the same folder as <b>index.html</b>.</div>";
+      "<div style='padding:24px;font-family:system-ui'>Konnte <b>books.json</b> nicht laden.</div>";
   });
 </script>
 </body>

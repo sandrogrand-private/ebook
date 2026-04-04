@@ -32,7 +32,7 @@
   <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
     <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold">RG</div>
+        <img src="../recipeebookstore_logo.png" alt="Recipe Ebook Store" class="h-10 w-10 rounded-2xl object-contain" />
         <div>
           <div id="siteTitle" class="text-base font-semibold leading-tight">Recettes eBooks</div>
           <div id="siteTagline" class="text-sm text-zinc-600 leading-tight">Des livres de cuisine que vous utiliserez vraiment.</div>
@@ -357,6 +357,7 @@
 
     addPill(book.language);
     addPill(book.format);
+    if (book.recipe_count) addPill(book.recipe_count + " recettes");
     (book.tags || []).slice(0,3).forEach(addPill);
 
     const actions = document.createElement("div");
@@ -404,6 +405,14 @@
       priceEl.className = "text-lg font-bold text-zinc-900";
       priceEl.textContent = "$" + book.price_usd.toFixed(2);
       priceRow.appendChild(priceEl);
+    }
+    if (book.recipe_count) {
+      const slug = (book.buy_url || "").split("/").pop() || book.id;
+      const recipeLink = document.createElement("a");
+      recipeLink.href = "/" + slug + "/recipes/";
+      recipeLink.className = "text-xs text-zinc-500 hover:text-zinc-900 hover:underline";
+      recipeLink.textContent = "Voir les " + book.recipe_count + " recettes →";
+      priceRow.appendChild(recipeLink);
     }
 
     actions.appendChild(buy);
