@@ -117,10 +117,10 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          const successUrl = window.location.origin + "/thank-you/?" + "title=Luang+Prabang+Bistro%3A+French+Classical+Technique+Meets+Lao+%26+Isan+Flavors";
+          const successUrl = window.location.origin + "/thank-you/?" + "title=Luang+Prabang+Bistro%3A+French+Classical+Technique+Meets+Lao+%26+Isan+Flavors&dl=https%3A%2F%2Fgithub.com%2Fsandrogrand-private%2Febook-downloads%2Freleases%2Fdownload%2Fpdf-store%2FRecipeEBookStore-French-Laos.pdf";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb5gcgez4n92s6xwj924p", quantity: 1 }],
-            customData: { bookTitle: "Luang Prabang Bistro: French Classical Technique Meets Lao & Isan Flavors", pdfUrl: "" },
+            customData: { bookTitle: "Luang Prabang Bistro: French Classical Technique Meets Lao & Isan Flavors", pdfUrl: "https://github.com/sandrogrand-private/ebook-downloads/releases/download/pdf-store/RecipeEBookStore-French-Laos.pdf" },
             settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {

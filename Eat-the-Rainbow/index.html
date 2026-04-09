@@ -142,10 +142,10 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          const successUrl = window.location.origin + "/thank-you/?" + "title=Eat+the+Rainbow%3A+Vibrant%2C+Antioxidant-Rich+Recipes+Bursting+with+Color+and+Crunch";
+          const successUrl = window.location.origin + "/thank-you/?" + "title=Eat+the+Rainbow%3A+Vibrant%2C+Antioxidant-Rich+Recipes+Bursting+with+Color+and+Crunch&dl=https%3A%2F%2Fgithub.com%2Fsandrogrand-private%2Febook-downloads%2Freleases%2Fdownload%2Fpdf-store%2FRecipeEBookStore-Eat-the-Rainbow.pdf";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb4bjn15w2veh76jcn93n", quantity: 1 }],
-            customData: { bookTitle: "Eat the Rainbow: Vibrant, Antioxidant-Rich Recipes Bursting with Color and Crunch", pdfUrl: "" },
+            customData: { bookTitle: "Eat the Rainbow: Vibrant, Antioxidant-Rich Recipes Bursting with Color and Crunch", pdfUrl: "https://github.com/sandrogrand-private/ebook-downloads/releases/download/pdf-store/RecipeEBookStore-Eat-the-Rainbow.pdf" },
             settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {

@@ -142,10 +142,10 @@
 
       document.getElementById("buyBtn").addEventListener("click", function() {
         try {
-          const successUrl = window.location.origin + "/thank-you/?" + "title=Table+radieuse+%3A+50+recettes+anti-inflammatoires+pour+le+plaisir+au+quotidien+%E2%80%94+Une+cuisine+savoureuse%2C+color%C3%A9e+et+r%C3%A9guli%C3%A8re%2C+inspir%C3%A9e+des+saveurs+du+monde+entier";
+          const successUrl = window.location.origin + "/thank-you/?" + "title=Table+radieuse+%3A+50+recettes+anti-inflammatoires+pour+le+plaisir+au+quotidien+%E2%80%94+Une+cuisine+savoureuse%2C+color%C3%A9e+et+r%C3%A9guli%C3%A8re%2C+inspir%C3%A9e+des+saveurs+du+monde+entier&dl=https%3A%2F%2Fgithub.com%2Fsandrogrand-private%2Febook-downloads%2Freleases%2Fdownload%2Fpdf-store%2FRecipeEBookStore-Anti-Inflammatory-Recipes-That-Taste-Amazing-in-French.pdf";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb6wepmbckrm0j5c8nkm8", quantity: 1 }],
-            customData: { bookTitle: "Table radieuse : 50 recettes anti-inflammatoires pour le plaisir au quotidien — Une cuisine savoureuse, colorée et régulière, inspirée des saveurs du monde entier", pdfUrl: "" },
+            customData: { bookTitle: "Table radieuse : 50 recettes anti-inflammatoires pour le plaisir au quotidien — Une cuisine savoureuse, colorée et régulière, inspirée des saveurs du monde entier", pdfUrl: "https://github.com/sandrogrand-private/ebook-downloads/releases/download/pdf-store/RecipeEBookStore-Anti-Inflammatory-Recipes-That-Taste-Amazing-in-French.pdf" },
             settings: { displayMode: "overlay", theme: "light", locale: "fr", successUrl }
           });
         } catch(e) {
