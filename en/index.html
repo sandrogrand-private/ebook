@@ -168,13 +168,10 @@
     if (!window.Paddle) return;
     try {
       const token = getPaddleToken();
-      if (token.startsWith("test_") && Paddle.Environment && typeof Paddle.Environment.set === "function") {
+      if (token.startsWith("test_")) {
         Paddle.Environment.set("sandbox");
       }
-      Paddle.Initialize({
-        token,
-        checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: LANG } }
-      });
+      Paddle.Initialize({ token });
     } catch (e) {
       console.warn("Paddle init failed:", e);
     }
@@ -190,7 +187,7 @@
       const successUrl = `${window.location.origin}/thank-you/?${successParams.toString()}`;
       Paddle.Checkout.open({
         items: [{ priceId, quantity: 1 }],
-        settings: { successUrl }
+        settings: { displayMode: "overlay", theme: "light", locale: LANG, successUrl }
       });
       return true;
     } catch (e) {

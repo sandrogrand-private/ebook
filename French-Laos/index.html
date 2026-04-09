@@ -111,10 +111,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       try {
-        Paddle.Initialize({
-          token: "test_3f7e1c3f493cd0d660554879b2a",
-          checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: "en" } }
-        });
+        Paddle.Environment.set('sandbox');
+        Paddle.Initialize({ token: "test_3f7e1c3f493cd0d660554879b2a" });
       } catch(e) { console.warn("Paddle init:", e); }
 
       document.getElementById("buyBtn").addEventListener("click", function() {
@@ -122,7 +120,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=Luang+Prabang+Bistro%3A+French+Classical+Technique+Meets+Lao+%26+Isan+Flavors";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb5gcgez4n92s6xwj924p", quantity: 1 }],
-            settings: { successUrl }
+            settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {
           console.warn("Paddle checkout:", e);

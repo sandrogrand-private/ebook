@@ -136,10 +136,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       try {
-        Paddle.Initialize({
-          token: "test_3f7e1c3f493cd0d660554879b2a",
-          checkout: { settings: { displayMode: "overlay", variant: "one-page", theme: "light", locale: "fr" } }
-        });
+        Paddle.Environment.set('sandbox');
+        Paddle.Initialize({ token: "test_3f7e1c3f493cd0d660554879b2a" });
       } catch(e) { console.warn("Paddle init:", e); }
 
       document.getElementById("buyBtn").addEventListener("click", function() {
@@ -147,7 +145,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=Table+radieuse+%3A+50+recettes+anti-inflammatoires+pour+le+plaisir+au+quotidien+%E2%80%94+Une+cuisine+savoureuse%2C+color%C3%A9e+et+r%C3%A9guli%C3%A8re%2C+inspir%C3%A9e+des+saveurs+du+monde+entier";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb6wepmbckrm0j5c8nkm8", quantity: 1 }],
-            settings: { successUrl }
+            settings: { displayMode: "overlay", theme: "light", locale: "fr", successUrl }
           });
         } catch(e) {
           console.warn("Paddle checkout:", e);
