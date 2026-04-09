@@ -3,7 +3,7 @@
     "title": "Recipe Ebook Store",
     "tagline": "Cookbooks designed for real life.",
     "brand": "Recipe Ebook Store",
-    "paddle_client_side_token": "live_a993e4116d50267168369a75b06"
+    "paddle_client_side_token": "test_3f7e1c3f493cd0d660554879b2a"
   },
   "books": [
     {
@@ -22,7 +22,7 @@
         "Repas Équilibrés"
       ],
       "published": "2026-04-03",
-      "paddle_price_id": "pri_01kn92y25jep9ectvb00pw0tmd",
+      "paddle_price_id": "pri_01knqtb6wepmbckrm0j5c8nkm8",
       "price_usd": 2.87,
       "source": "AI",
       "pdf_url": "",

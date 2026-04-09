@@ -3,7 +3,7 @@
     "title": "Recipe Ebook Store",
     "tagline": "Cookbooks designed for real life.",
     "brand": "Recipe Ebook Store",
-    "paddle_client_side_token": "live_a993e4116d50267168369a75b06"
+    "paddle_client_side_token": "test_3f7e1c3f493cd0d660554879b2a"
   },
   "books": [
     {
@@ -23,7 +23,7 @@
         "Smoothies"
       ],
       "published": "2026-03-07",
-      "paddle_price_id": "pri_01kn92xzg6ax8rsa9je2a9ddbv",
+      "paddle_price_id": "pri_01knqtb4bjn15w2veh76jcn93n",
       "price_usd": 2.87,
       "source": "AI",
       "pdf_url": "",
@@ -98,7 +98,7 @@
         "Thai"
       ],
       "published": "2026-04-03",
-      "paddle_price_id": "pri_01kn92y0cn7vyf0pkeg1vs2pvn",
+      "paddle_price_id": "pri_01knqtb5gcgez4n92s6xwj924p",
       "price_usd": 1.87,
       "source": "AI",
       "pdf_url": "",
@@ -148,7 +148,7 @@
         "Global Flavors"
       ],
       "published": "2026-04-03",
-      "paddle_price_id": "pri_01kn92y19c53rpdrh1b89c4p6j",
+      "paddle_price_id": "pri_01knqtb664sks0bty6v5w6vjj0",
       "price_usd": 2.87,
       "source": "AI",
       "pdf_url": "",
