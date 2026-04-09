@@ -187,6 +187,7 @@
       const successUrl = `${window.location.origin}/thank-you/?${successParams.toString()}`;
       Paddle.Checkout.open({
         items: [{ priceId, quantity: 1 }],
+        customData: { bookTitle: title, pdfUrl: pdfUrl || "" },
         settings: { displayMode: "overlay", theme: "light", locale: LANG, successUrl }
       });
       return true;

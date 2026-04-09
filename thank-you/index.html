@@ -15,7 +15,7 @@
   <header class="sticky top-0 z-10 border-b border-zinc-200/70 glass">
     <div class="mx-auto max-w-3xl px-4 py-4 flex items-center gap-3">
       <a href="/en/" class="flex items-center gap-3 hover:opacity-80">
-        <div class="h-9 w-9 rounded-2xl bg-zinc-900 text-white grid place-items-center font-semibold text-sm">RG</div>
+        <img src="/recipeebookstore_logo.png" alt="Recipe Ebook Store" class="h-9 w-9 rounded-2xl object-contain" />
         <span class="text-sm font-semibold">Recipe Ebook Store</span>
       </a>
     </div>
@@ -23,47 +23,60 @@
 
   <main class="mx-auto max-w-3xl px-4 py-16 text-center">
 
-    <!-- Success state -->
+    <!-- Purchase confirmed (shown when Paddle redirects here with params) -->
     <div id="successBlock" class="hidden">
       <div class="text-5xl mb-6">🎉</div>
       <h1 class="text-3xl font-bold">Thank you for your purchase!</h1>
-      <p class="mt-4 text-zinc-600 text-lg">Your eBook is ready to download.</p>
+      <p id="subtitleText" class="mt-3 text-zinc-600 text-lg"></p>
 
-      <div class="mt-10 rounded-3xl border border-zinc-200 bg-white shadow-sm p-8 text-left max-w-lg mx-auto">
-        <p id="bookTitle" class="font-semibold text-lg"></p>
-        <p class="mt-1 text-sm text-zinc-500">Click the button below to download your PDF.</p>
-        <a id="downloadBtn" href="#"
-          class="mt-6 flex justify-center rounded-2xl bg-zinc-900 px-6 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-colors">
-          ⬇ Download your eBook (PDF)
-        </a>
-        <p class="mt-4 text-xs text-zinc-400 text-center">
-          A confirmation email has also been sent to you by Paddle.<br>
-          If you have any issues, contact us at <a href="mailto:support@recipeebookstore.com" class="underline">support@recipeebookstore.com</a>.
+      <div class="mt-10 rounded-3xl border border-zinc-200 bg-white shadow-sm p-8 text-left max-w-lg mx-auto space-y-5">
+
+        <!-- Download button (shown when pdf URL is present) -->
+        <div id="downloadSection" class="hidden">
+          <p id="bookTitle" class="font-semibold text-lg mb-4"></p>
+          <a id="downloadBtn" href="#"
+            class="flex justify-center rounded-2xl bg-zinc-900 px-6 py-4 text-base font-semibold text-white hover:bg-zinc-800 transition-colors">
+            ⬇&nbsp; Download your eBook (PDF)
+          </a>
+          <p class="mt-3 text-xs text-zinc-400 text-center">
+            The download link is also in your confirmation email from Paddle.
+          </p>
+        </div>
+
+        <!-- Email notice (always shown) -->
+        <div id="emailNotice" class="rounded-2xl bg-zinc-50 border border-zinc-200 p-4">
+          <p class="text-sm font-semibold text-zinc-800">📧 Check your email</p>
+          <p class="mt-1 text-sm text-zinc-600">
+            Your download link has been emailed to you. Check your inbox (and spam folder).
+          </p>
+        </div>
+
+        <!-- Transaction ID (always shown) -->
+        <div class="text-xs text-zinc-400 pt-1">
+          <span>Order reference: </span>
+          <span id="txnId" class="font-mono"></span>
+        </div>
+
+        <p class="text-xs text-zinc-400">
+          Questions?
+          <a href="mailto:support@recipeebookstore.com" class="underline text-zinc-600">
+            support@recipeebookstore.com
+          </a>
         </p>
       </div>
 
-      <a href="/en/" class="mt-10 inline-block text-sm text-zinc-500 hover:text-zinc-900">← Browse more books</a>
+      <a href="/en/" class="mt-10 inline-block text-sm text-zinc-500 hover:text-zinc-900">
+        ← Browse more books
+      </a>
     </div>
 
-    <!-- No download link state -->
-    <div id="noLinkBlock" class="hidden">
-      <div class="text-5xl mb-6">✅</div>
-      <h1 class="text-3xl font-bold">Thank you for your purchase!</h1>
-      <p class="mt-4 text-zinc-600 text-lg max-w-md mx-auto">
-        Your order is confirmed. You will receive a download link by email shortly.
-      </p>
-      <p class="mt-4 text-sm text-zinc-400">
-        Questions? <a href="mailto:support@recipeebookstore.com" class="underline">support@recipeebookstore.com</a>
-      </p>
-      <a href="/en/" class="mt-10 inline-block text-sm text-zinc-500 hover:text-zinc-900">← Browse more books</a>
-    </div>
-
-    <!-- Error / direct access state -->
+    <!-- Fallback: direct access without params -->
     <div id="errorBlock">
       <div class="text-5xl mb-6">📚</div>
       <h1 class="text-3xl font-bold">Recipe Ebook Store</h1>
       <p class="mt-4 text-zinc-600">Browse our collection of recipe eBooks.</p>
-      <a href="/en/" class="mt-8 inline-flex rounded-2xl bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
+      <a href="/en/"
+        class="mt-8 inline-flex rounded-2xl bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
         Browse books
       </a>
     </div>
@@ -71,30 +84,47 @@
   </main>
 
 <script>
-  // Paddle passes transaction data to the success URL as query params
-  // We encode the book title and pdf_url into the successUrl when opening checkout
-  // e.g. /thank-you/?title=Eat+the+Rainbow&dl=https%3A%2F%2F...
+  // Paddle redirects to this page after a successful checkout.
+  // It appends the following params (set in settings.successUrl):
+  //   title  — book title  (set by us in Checkout.open)
+  //   dl     — pdf url     (set by us in Checkout.open, empty until PDF hosting is live)
+  // Paddle also appends:
+  //   _ptxn  — transaction ID
 
   const params = new URLSearchParams(window.location.search);
   const title  = params.get("title") || "";
-  const dl     = params.get("dl") || "";
+  const dl     = params.get("dl")    || "";
+  const ptxn   = params.get("_ptxn") || "";
 
   const successBlock = document.getElementById("successBlock");
-  const noLinkBlock  = document.getElementById("noLinkBlock");
   const errorBlock   = document.getElementById("errorBlock");
 
-  if (title || dl) {
+  // Show success state if any purchase param is present
+  if (title || dl || ptxn) {
     errorBlock.classList.add("hidden");
+    successBlock.classList.remove("hidden");
 
+    // Subtitle
+    const subtitleEl = document.getElementById("subtitleText");
+    subtitleEl.textContent = dl
+      ? "Your eBook is ready to download below."
+      : "A download link has been sent to your email.";
+
+    // Download button
     if (dl) {
-      successBlock.classList.remove("hidden");
+      const section = document.getElementById("downloadSection");
+      section.classList.remove("hidden");
       document.getElementById("bookTitle").textContent = title || "Your eBook";
       document.getElementById("downloadBtn").href = dl;
+    }
+
+    // Transaction ID
+    if (ptxn) {
+      document.getElementById("txnId").textContent = ptxn;
     } else {
-      noLinkBlock.classList.remove("hidden");
+      document.getElementById("txnId").closest("div").classList.add("hidden");
     }
   }
-  // else: show errorBlock (default, already visible)
 </script>
 </body>
 </html>

@@ -145,6 +145,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=Table+radieuse+%3A+50+recettes+anti-inflammatoires+pour+le+plaisir+au+quotidien+%E2%80%94+Une+cuisine+savoureuse%2C+color%C3%A9e+et+r%C3%A9guli%C3%A8re%2C+inspir%C3%A9e+des+saveurs+du+monde+entier";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb6wepmbckrm0j5c8nkm8", quantity: 1 }],
+            customData: { bookTitle: "Table radieuse : 50 recettes anti-inflammatoires pour le plaisir au quotidien — Une cuisine savoureuse, colorée et régulière, inspirée des saveurs du monde entier", pdfUrl: "" },
             settings: { displayMode: "overlay", theme: "light", locale: "fr", successUrl }
           });
         } catch(e) {

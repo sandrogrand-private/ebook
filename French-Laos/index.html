@@ -120,6 +120,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=Luang+Prabang+Bistro%3A+French+Classical+Technique+Meets+Lao+%26+Isan+Flavors";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb5gcgez4n92s6xwj924p", quantity: 1 }],
+            customData: { bookTitle: "Luang Prabang Bistro: French Classical Technique Meets Lao & Isan Flavors", pdfUrl: "" },
             settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {

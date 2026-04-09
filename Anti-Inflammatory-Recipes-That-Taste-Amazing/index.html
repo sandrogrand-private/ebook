@@ -145,6 +145,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=50+Anti-Inflammatory+Recipes+That+Taste+Amazing";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb664sks0bty6v5w6vjj0", quantity: 1 }],
+            customData: { bookTitle: "50 Anti-Inflammatory Recipes That Taste Amazing", pdfUrl: "" },
             settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {

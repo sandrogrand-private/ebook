@@ -145,6 +145,7 @@
           const successUrl = window.location.origin + "/thank-you/?" + "title=Eat+the+Rainbow%3A+Vibrant%2C+Antioxidant-Rich+Recipes+Bursting+with+Color+and+Crunch";
           Paddle.Checkout.open({
             items: [{ priceId: "pri_01knqtb4bjn15w2veh76jcn93n", quantity: 1 }],
+            customData: { bookTitle: "Eat the Rainbow: Vibrant, Antioxidant-Rich Recipes Bursting with Color and Crunch", pdfUrl: "" },
             settings: { displayMode: "overlay", theme: "light", locale: "en", successUrl }
           });
         } catch(e) {
